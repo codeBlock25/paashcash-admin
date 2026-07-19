@@ -51,17 +51,19 @@ export async function forwardBackendRequest(
 
   const method = request.method.toUpperCase();
   const hasBody = method !== 'GET' && method !== 'HEAD';
+  const requestUrl = new URL(request.url);
+  const backendUrl = new URL(
+    `${getBackendApiUrl()}/api/${endpoint.replace(/^\/+/, '')}`,
+  );
+  backendUrl.search = requestUrl.search;
 
   try {
-    const response = await fetch(
-      `${getBackendApiUrl()}/api/${endpoint.replace(/^\/+/, '')}`,
-      {
-        body: hasBody ? await request.arrayBuffer() : undefined,
-        cache: 'no-store',
-        headers,
-        method,
-      },
-    );
+    const response = await fetch(backendUrl, {
+      body: hasBody ? await request.arrayBuffer() : undefined,
+      cache: 'no-store',
+      headers,
+      method,
+    });
 
     return new Response(await response.arrayBuffer(), {
       headers: {
@@ -72,7 +74,7 @@ export async function forwardBackendRequest(
     });
   } catch {
     return Response.json(
-      { message: 'The banner service is temporarily unavailable.' },
+      { message: 'The backend service is temporarily unavailable.' },
       { status: 503 },
     );
   }

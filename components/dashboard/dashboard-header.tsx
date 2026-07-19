@@ -8,6 +8,7 @@ import {
   ImageIcon,
   Menu,
   Plus,
+  UsersRound,
   X,
 } from 'lucide-react';
 import Link from 'next/link';
@@ -26,21 +27,28 @@ export function DashboardHeader({
   const pathname = usePathname();
   const bannersPage = pathname.startsWith('/dashboard/banners');
   const subscriptionsPage = pathname.startsWith('/dashboard/subscriptions');
-  const HeaderIcon = subscriptionsPage
-    ? Crown
-    : bannersPage
-      ? ImageIcon
-      : House;
-  const title = subscriptionsPage
-    ? 'Billing & Subscription'
-    : bannersPage
-      ? 'Banners'
-      : 'Dashboard';
-  const description = subscriptionsPage
-    ? 'View and manage user subscriptions'
-    : bannersPage
-      ? 'View and manage Banners'
-      : 'View and manage users';
+  const waitlistPage = pathname.startsWith('/dashboard/waitlist');
+  const HeaderIcon = waitlistPage
+    ? UsersRound
+    : subscriptionsPage
+      ? Crown
+      : bannersPage
+        ? ImageIcon
+        : House;
+  const title = waitlistPage
+    ? 'Waiting List'
+    : subscriptionsPage
+      ? 'Billing & Subscription'
+      : bannersPage
+        ? 'Banners'
+        : 'Dashboard';
+  const description = waitlistPage
+    ? 'View people waiting to join Paash Cash'
+    : subscriptionsPage
+      ? 'View and manage user subscriptions'
+      : bannersPage
+        ? 'View and manage Banners'
+        : 'View and manage users';
 
   return (
     <header className="flex h-[86px] shrink-0 items-center justify-between border-b bg-white px-4 sm:px-8">

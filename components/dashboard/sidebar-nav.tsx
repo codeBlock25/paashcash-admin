@@ -1,6 +1,14 @@
 'use client';
 
-import { Crown, House, IdCard, PanelsTopLeft, Store, Zap } from 'lucide-react';
+import {
+  Clock3,
+  Crown,
+  House,
+  IdCard,
+  PanelsTopLeft,
+  Store,
+  Zap,
+} from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -11,6 +19,7 @@ const navigation = [
   { label: 'Services', href: '#', icon: Zap },
   { label: 'Banners', href: '/dashboard/banners', icon: PanelsTopLeft },
   { label: 'Subscriptions', href: '/dashboard/subscriptions', icon: Crown },
+  { label: 'Waiting List', href: '/dashboard/waitlist', icon: Clock3 },
 ];
 
 export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
