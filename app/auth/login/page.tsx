@@ -1,5 +1,10 @@
-import { AuthFlow } from '@/components/auth-flow';
+import { redirect } from 'next/navigation';
 
-export default function LoginPage() {
-  return <AuthFlow step="login" />;
+import { LoginAuthPage } from '@/components/auth-flow';
+import { getAdminSession } from '@/lib/admin-session';
+
+export default async function LoginPage() {
+  if (await getAdminSession()) redirect('/dashboard');
+
+  return <LoginAuthPage />;
 }

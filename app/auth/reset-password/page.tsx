@@ -1,16 +1,19 @@
-import { AuthFlow } from '@/components/auth-flow';
+import { ResetPasswordAuthPage } from '@/components/auth-flow';
 
 export default async function ResetPasswordPage({
   searchParams,
 }: {
-  searchParams: Promise<{ email?: string | string[] }>;
+  searchParams: Promise<{
+    email?: string | string[];
+    token?: string | string[];
+  }>;
 }) {
-  const { email } = await searchParams;
+  const { email, token } = await searchParams;
 
   return (
-    <AuthFlow
-      step="reset-password"
+    <ResetPasswordAuthPage
       initialEmail={typeof email === 'string' ? email : ''}
+      initialToken={typeof token === 'string' ? token : ''}
     />
   );
 }
