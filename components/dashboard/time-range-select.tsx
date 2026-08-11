@@ -13,16 +13,16 @@ const ranges: Array<{ label: string; value: DashboardRange }> = [
 
 export function TimeRangeSelect({
   value,
-  onValueChange,
+  action,
 }: {
   value: DashboardRange;
-  onValueChange: (value: DashboardRange) => void;
+  action: (value: DashboardRange) => void;
 }) {
   return (
     <Select.Root
       value={value}
       onValueChange={(nextValue) => {
-        if (nextValue) onValueChange(nextValue);
+        if (nextValue) action(nextValue);
       }}
       items={ranges}
     >

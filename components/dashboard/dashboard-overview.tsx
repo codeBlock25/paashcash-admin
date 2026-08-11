@@ -45,7 +45,7 @@ export function DashboardOverview({
               Here&apos;s your platform overview and recent activity.
             </p>
           </div>
-          <TimeRangeSelect value={range} onValueChange={onRangeChange} />
+          <TimeRangeSelect value={range} action={onRangeChange} />
         </div>
         <div className="mt-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {stats.map((stat) => (
