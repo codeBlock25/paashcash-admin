@@ -3,70 +3,83 @@ import {
   Gift,
   RadioTower,
   Smartphone,
+  Trophy,
   Tv,
   Zap,
 } from 'lucide-react';
-
+import {
+  type AdminDashboard,
+  formatCount,
+  formatNaira,
+} from '@/components/dashboard/dashboard-types';
 import { ServiceCard } from '@/components/dashboard/service-card';
 
-const services = [
+const servicePresentation = [
   {
+    serviceType: 'airtime' as const,
     title: 'Airtime',
     ordersLabel: 'Total Airtime Orders',
-    orders: '968',
     incomeLabel: 'Airtime Income',
-    income: '₦1,500,006',
     icon: Smartphone,
     iconClassName: 'bg-[#3765f6]',
   },
   {
+    serviceType: 'data' as const,
     title: 'Data',
     ordersLabel: 'Total Data Orders',
-    orders: '43',
     incomeLabel: 'Data Income',
-    income: '₦400,000',
     icon: RadioTower,
     iconClassName: 'bg-[#d24d24]',
   },
   {
+    serviceType: 'electricity' as const,
     title: 'Electricity',
     ordersLabel: 'Total Electricity Orders',
-    orders: '170',
     incomeLabel: 'Electricity Income',
-    income: '₦4,700,000',
     icon: Zap,
     iconClassName: 'bg-[#9233b8]',
   },
   {
+    serviceType: 'cable-tv' as const,
     title: 'Cable TV',
     ordersLabel: 'Total Cable TV Orders',
-    orders: '390',
     incomeLabel: 'Cable TV Income',
-    income: '₦10,000,000',
     icon: Tv,
     iconClassName: 'bg-[#f3338b]',
   },
   {
+    serviceType: 'gift-card' as const,
     title: 'Giftcards',
     ordersLabel: 'Total Giftcard Orders',
-    orders: '543',
     incomeLabel: 'Giftcard Income',
-    income: '₦8,500,000',
     icon: Gift,
     iconClassName: 'bg-[#229447]',
   },
   {
+    serviceType: 'betting' as const,
+    title: 'Betting',
+    ordersLabel: 'Total Betting Orders',
+    incomeLabel: 'Betting Income',
+    icon: Trophy,
+    iconClassName: 'bg-[#17a2a4]',
+  },
+  {
+    serviceType: 'airtime-to-cash' as const,
     title: 'Airtime to Cash',
     ordersLabel: 'Total Airtime2Cash Orders',
-    orders: '--',
     incomeLabel: 'Airtime2Cash Income',
-    income: '--',
     icon: BanknoteArrowDown,
     iconClassName: 'bg-[#fa972e]',
   },
 ];
 
-export function ServicesOverview() {
+export function ServicesOverview({
+  data,
+}: {
+  data: AdminDashboard['services'] | null;
+}) {
+  const totals = new Map(data?.map((item) => [item.serviceType, item]));
+
   return (
     <section className="border-b px-4 py-7 sm:px-8">
       <div className="mx-auto max-w-[1440px]">
@@ -77,9 +90,17 @@ export function ServicesOverview() {
           Overall services offered on the platform.
         </p>
         <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {services.map((service) => (
-            <ServiceCard key={service.title} {...service} />
-          ))}
+          {servicePresentation.map((service) => {
+            const total = totals.get(service.serviceType);
+            return (
+              <ServiceCard
+                key={service.title}
+                {...service}
+                orders={total ? formatCount(total.orders) : '—'}
+                income={total ? formatNaira(total.incomeKobo) : '—'}
+              />
+            );
+          })}
         </div>
       </div>
     </section>

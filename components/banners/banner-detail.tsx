@@ -23,6 +23,7 @@ import {
 import { BannerDeleteDialog } from '@/components/banners/banner-delete-dialog';
 import { BannerLoading } from '@/components/banners/banner-loading';
 import { Button } from '@/components/ui/button';
+import { authenticatedFetch } from '@/lib/authenticated-fetch';
 
 export function BannerDetail({ bannerId }: { bannerId: string }) {
   const router = useRouter();
@@ -34,7 +35,7 @@ export function BannerDetail({ bannerId }: { bannerId: string }) {
 
   const loadBanner = useCallback(async () => {
     try {
-      const response = await fetch(`/api/banners/${bannerId}`, {
+      const response = await authenticatedFetch(`/api/banners/${bannerId}`, {
         cache: 'no-store',
       });
       const result = (await response.json()) as Banner | ApiError;
@@ -69,7 +70,7 @@ export function BannerDetail({ bannerId }: { bannerId: string }) {
     if (!banner) return;
     setDeleting(true);
     try {
-      const response = await fetch(`/api/banners/${banner.id}`, {
+      const response = await authenticatedFetch(`/api/banners/${banner.id}`, {
         method: 'DELETE',
       });
       const result = (await response.json()) as ApiError;

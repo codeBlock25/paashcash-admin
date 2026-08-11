@@ -27,6 +27,7 @@ import {
 import { BannerLoading } from '@/components/banners/banner-loading';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { authenticatedFetch } from '@/lib/authenticated-fetch';
 
 const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
@@ -54,7 +55,7 @@ export function BannerForm({ bannerId }: { bannerId?: string }) {
   useEffect(() => {
     if (!bannerId) return;
     let active = true;
-    void fetch(`/api/banners/${bannerId}`, { cache: 'no-store' })
+    void authenticatedFetch(`/api/banners/${bannerId}`, { cache: 'no-store' })
       .then(async (response) => {
         const result = (await response.json()) as Banner | ApiError;
         if (!response.ok) {
@@ -154,7 +155,7 @@ export function BannerForm({ bannerId }: { bannerId?: string }) {
     if (file) body.set('file', file);
 
     try {
-      const response = await fetch(
+      const response = await authenticatedFetch(
         bannerId ? `/api/banners/${bannerId}` : '/api/banners',
         { body, method: bannerId ? 'PATCH' : 'POST' },
       );

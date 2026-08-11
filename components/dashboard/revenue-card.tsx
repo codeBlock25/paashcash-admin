@@ -16,7 +16,9 @@ export function RevenueCard({
         {value}
       </p>
       <p className="mt-1 text-[12px] text-[#77767e]">
-        {change} from last month
+        {change === '—'
+          ? 'No prior-period comparison'
+          : `${change} from the previous period`}
       </p>
     </Card>
   );

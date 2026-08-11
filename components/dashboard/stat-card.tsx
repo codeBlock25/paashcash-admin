@@ -30,8 +30,14 @@ export function StatCard({
           {value}
         </p>
         <p className="mt-1 text-[12px] text-[#77767e]">
-          <span className="font-medium text-[#159447]">{change}</span> from last
-          month
+          {change === '—' ? (
+            'No prior-period comparison'
+          ) : (
+            <>
+              <span className="font-medium text-[#159447]">{change}</span> from
+              the previous period
+            </>
+          )}
         </p>
       </div>
     </Card>

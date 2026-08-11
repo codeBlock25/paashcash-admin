@@ -12,5 +12,5 @@ export default async function DashboardLayout({
   const account = await getAdminSession();
   if (!account) redirect('/auth/login');
 
-  return <AdminShell>{children}</AdminShell>;
+  return <AdminShell account={account}>{children}</AdminShell>;
 }

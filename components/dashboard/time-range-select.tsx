@@ -2,14 +2,30 @@
 
 import { Select } from '@base-ui/react/select';
 import { Check, ChevronDown } from 'lucide-react';
+import type { DashboardRange } from '@/components/dashboard/dashboard-types';
 
-const ranges = ['All Time', 'This Year', 'This Month', 'This Week'].map(
-  (range) => ({ label: range, value: range }),
-);
+const ranges: Array<{ label: string; value: DashboardRange }> = [
+  { label: 'All Time', value: 'all' },
+  { label: 'This Year', value: 'year' },
+  { label: 'This Month', value: 'month' },
+  { label: 'This Week', value: 'week' },
+];
 
-export function TimeRangeSelect() {
+export function TimeRangeSelect({
+  value,
+  onValueChange,
+}: {
+  value: DashboardRange;
+  onValueChange: (value: DashboardRange) => void;
+}) {
   return (
-    <Select.Root defaultValue="All Time" items={ranges}>
+    <Select.Root
+      value={value}
+      onValueChange={(nextValue) => {
+        if (nextValue) onValueChange(nextValue);
+      }}
+      items={ranges}
+    >
       <Select.Trigger
         aria-label="Dashboard time range"
         className="flex h-10 min-w-36 items-center justify-between gap-3 rounded-lg border bg-white px-3 text-[13px] font-medium text-[#45444a] shadow-xs outline-none transition hover:bg-muted focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/20"

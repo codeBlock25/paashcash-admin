@@ -26,6 +26,7 @@ import {
 import { BannerDeleteDialog } from '@/components/banners/banner-delete-dialog';
 import { BannerLoading } from '@/components/banners/banner-loading';
 import { Button } from '@/components/ui/button';
+import { authenticatedFetch } from '@/lib/authenticated-fetch';
 
 export function BannersPage() {
   const [banners, setBanners] = useState<Banner[]>([]);
@@ -43,7 +44,9 @@ export function BannersPage() {
   const loadBanners = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch('/api/banners', { cache: 'no-store' });
+      const response = await authenticatedFetch('/api/banners', {
+        cache: 'no-store',
+      });
       const result = (await response.json()) as Banner[] | ApiError;
       if (!response.ok) {
         throw new Error(
@@ -99,7 +102,7 @@ export function BannersPage() {
   async function removeBanner(banner: Banner) {
     setDeletingId(banner.id);
     try {
-      const response = await fetch(`/api/banners/${banner.id}`, {
+      const response = await authenticatedFetch(`/api/banners/${banner.id}`, {
         method: 'DELETE',
       });
       const result = (await response.json()) as ApiError;

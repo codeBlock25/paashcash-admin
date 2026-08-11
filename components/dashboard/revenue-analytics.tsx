@@ -1,13 +1,39 @@
+import {
+  type AdminDashboard,
+  formatChange,
+  formatCount,
+  formatNaira,
+} from '@/components/dashboard/dashboard-types';
 import { RevenueCard } from '@/components/dashboard/revenue-card';
 
-const revenue = [
-  { title: 'Total amount Paid', value: '₦24M', change: '+12%' },
-  { title: 'Total Amount in Escrow', value: '₦10M', change: '+12%' },
-  { title: 'Total Revenue This Month', value: '₦190k', change: '+12%' },
-  { title: 'Current Paying Subscribers', value: '1,847', change: '+18%' },
-];
+export function RevenueAnalytics({
+  data,
+}: {
+  data: AdminDashboard['revenue'] | null;
+}) {
+  const revenue = [
+    {
+      title: 'Total Amount Paid',
+      value: data ? formatNaira(data.totalPaid.valueKobo) : '—',
+      change: formatChange(data?.totalPaid.changePercentage ?? null),
+    },
+    {
+      title: 'Total Held in Wallets',
+      value: data ? formatNaira(data.heldInWallets.valueKobo) : '—',
+      change: formatChange(data?.heldInWallets.changePercentage ?? null),
+    },
+    {
+      title: 'Platform Revenue',
+      value: data ? formatNaira(data.revenue.valueKobo) : '—',
+      change: formatChange(data?.revenue.changePercentage ?? null),
+    },
+    {
+      title: 'Paying Customers',
+      value: data ? formatCount(data.payingCustomers.value) : '—',
+      change: formatChange(data?.payingCustomers.changePercentage ?? null),
+    },
+  ];
 
-export function RevenueAnalytics() {
   return (
     <section className="border-b px-4 py-7 sm:px-8">
       <div className="mx-auto max-w-[1440px]">

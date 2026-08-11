@@ -12,6 +12,7 @@ import type { ReactNode } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
+import { authenticatedFetch } from '@/lib/authenticated-fetch';
 
 type WaitlistEntry = {
   id: string;
@@ -56,7 +57,7 @@ export function WaitlistPage() {
         page: String(page),
         limit: String(pageSize),
       });
-      const response = await fetch(`/api/waitlist?${params}`, {
+      const response = await authenticatedFetch(`/api/waitlist?${params}`, {
         cache: 'no-store',
       });
       const result = (await response.json()) as WaitlistResponse | ApiError;
