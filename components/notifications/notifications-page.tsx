@@ -20,6 +20,7 @@ type Notification = {
   data?: Record<string, unknown> | null;
   readAt: string | null;
   createdAt: string;
+  source?: 'system' | 'case';
 };
 
 type NotificationResponse = {
@@ -38,13 +39,12 @@ export function NotificationsPage() {
   const loadNotifications = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await authenticatedFetch(
-        '/api/notifications?limit=100',
-        {
-          cache: 'no-store',
-        },
-      );
+      const [response, caseResponse] = await Promise.all([
+        authenticatedFetch('/api/notifications?limit=100', { cache: 'no-store' }),
+        authenticatedFetch('/api/case-management/notifications', { cache: 'no-store' }),
+      ]);
       const result = (await response.json()) as NotificationResponse | ApiError;
+      const caseResult = (await caseResponse.json()) as { items?: Array<{ id: string; title: string; body: string; data?: Record<string, unknown>; caseId?: string; readAt: string | null; createdAt: string }> } & ApiError;
 
       if (!response.ok) {
         const message = (result as ApiError).message;
@@ -54,8 +54,12 @@ export function NotificationsPage() {
             : message || 'Unable to load notifications.',
         );
       }
+      if (!caseResponse.ok) throw new Error('Unable to load case notifications.');
 
-      setNotifications((result as NotificationResponse).items);
+      setNotifications([
+        ...(result as NotificationResponse).items.map((item) => ({ ...item, source: 'system' as const })),
+        ...(caseResult.items ?? []).map((item) => ({ id: item.id, title: item.title, message: item.body, ctaLabel: item.caseId ? 'View case' : null, ctaUrl: item.caseId ? `/dashboard/cases/${item.caseId}` : null, data: item.data, readAt: item.readAt, createdAt: item.createdAt, source: 'case' as const })),
+      ].sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)));
     } catch (error) {
       toast.error(
         error instanceof Error
@@ -98,10 +102,9 @@ export function NotificationsPage() {
 
     try {
       if (!notification.readAt) {
-        const response = await authenticatedFetch(
-          `/api/notifications/${encodeURIComponent(notification.id)}/read`,
-          { method: 'PATCH' },
-        );
+        const response = notification.source === 'case'
+          ? await authenticatedFetch('/api/case-management/notifications/read', { method: 'PATCH', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ ids: [notification.id] }) })
+          : await authenticatedFetch(`/api/notifications/${encodeURIComponent(notification.id)}/read`, { method: 'PATCH' });
         if (!response.ok) throw new Error('Unable to open this notification.');
 
         setNotifications((current) =>

@@ -27,9 +27,14 @@ export function MarkAllReadButton({
   async function markAllRead() {
     setPending(true);
     try {
-      const response = await authenticatedFetch('/api/notifications/read-all', {
-        method: 'PATCH',
-      });
+      const [response, caseResponse] = await Promise.all([
+        authenticatedFetch('/api/notifications/read-all', { method: 'PATCH' }),
+        authenticatedFetch('/api/case-management/notifications/read', {
+          method: 'PATCH',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ all: true }),
+        }),
+      ]);
       const result = (await response.json()) as {
         message?: string | string[];
         updatedCount?: number;
@@ -42,6 +47,7 @@ export function MarkAllReadButton({
             : result.message || 'Unable to mark notifications as read.',
         );
       }
+      if (!caseResponse.ok) throw new Error('Unable to mark case notifications as read.');
 
       window.dispatchEvent(
         new CustomEvent(notificationsReadAllEvent, {

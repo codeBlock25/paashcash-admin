@@ -5,6 +5,7 @@ import {
   BriefcaseBusiness,
   Clock3,
   Crown,
+  Gift,
   House,
   IdCard,
   MessageCircle,
@@ -34,8 +35,7 @@ type NavigationGroup = {
 
 const adminItems: NavigationItem[] = [
   { label: 'Dashboard', href: '/dashboard', icon: House },
-  { label: 'Visa Applicants', href: '#', icon: IdCard },
-  { label: 'Agencies', href: '#', icon: Store },
+  { label: 'Visa Escrow', href: '/dashboard/visa-escrows', icon: IdCard },
   { label: 'Services', href: '/dashboard/services', icon: Zap },
 ];
 
@@ -45,9 +45,13 @@ const caseManagementItems: NavigationItem[] = [
     href: '/dashboard/case-managers',
     icon: UsersRound,
   },
-  { label: 'Case Inbox', href: '#', icon: BriefcaseBusiness },
-  { label: 'Assignments', href: '#', icon: Send },
-  { label: 'Escalations', href: '#', icon: Zap },
+  {
+    label: 'Case Inbox',
+    href: '/dashboard/case-inbox',
+    icon: BriefcaseBusiness,
+  },
+  { label: 'Assignments', href: '/dashboard/cases', icon: Send },
+  { label: 'Escalations', href: '/dashboard/escalations', icon: Zap },
   {
     label: 'Notifications',
     href: '/dashboard/notifications',
@@ -83,9 +87,12 @@ function getNavigation(
         label: 'Visa Place',
         items: [
           { label: 'My Cases', href: '/dashboard', icon: House },
-          { label: 'Case Inbox', href: '#', icon: IdCard },
-          { label: 'Messages', href: '#', icon: MessageCircle },
-          { label: 'Escalations', href: '#', icon: Zap },
+          {
+            label: 'Messages',
+            href: '/dashboard/case-inbox',
+            icon: MessageCircle,
+          },
+          { label: 'Escalations', href: '/dashboard/escalations', icon: Zap },
           {
             label: 'Notifications',
             href: '/dashboard/notifications',
@@ -102,6 +109,12 @@ function getNavigation(
       label: 'Admin',
       items: [
         ...adminItems,
+        { label: 'Agencies', href: '/dashboard/agencies', icon: Store },
+        {
+          label: 'Gift Card Availability',
+          href: '/dashboard/feature-status/gift-cards',
+          icon: Gift,
+        },
         { label: 'Admins', href: '/dashboard/admins', icon: ShieldCheck },
         { label: 'Banners', href: '/dashboard/banners', icon: PanelsTopLeft },
         {

@@ -3258,6 +3258,102 @@
         <option name="homepage" value="https://www.atroui.com" />
         <option name="urlTemplate" value="https://www.atroui.com/r/{name}.json" />
       </RegistryConfigState>
+      <RegistryConfigState>
+        <option name="id" value="central-benday" />
+        <option name="name" value="Benday" />
+        <option name="namespace" value="@benday" />
+        <option name="baseUrl" value="https://benday.kacemmathlouthi.dev/r" />
+        <option name="stylePath" value="/{name}.json" />
+        <option name="type" value="community" />
+        <option name="enabled" value="false" />
+        <option name="description" value="Turn any logo into an animated Ben-Day dot field: a thinking indicator for AI and agent interfaces, baked from your own mark." />
+        <option name="homepage" value="https://benday.kacemmathlouthi.dev" />
+        <option name="urlTemplate" value="https://benday.kacemmathlouthi.dev/r/{name}.json" />
+      </RegistryConfigState>
+      <RegistryConfigState>
+        <option name="id" value="central-initium" />
+        <option name="name" value="Initium" />
+        <option name="namespace" value="@initium" />
+        <option name="baseUrl" value="https://app.initium.sh/r/styles/{style}" />
+        <option name="stylePath" value="/{name}.json" />
+        <option name="type" value="community" />
+        <option name="enabled" value="false" />
+        <option name="description" value="Conversion-focused marketing blocks and landing page sections for shadcn/ui, with a visual style editor, agent skills, and the first block of every category free to install." />
+        <option name="homepage" value="https://initium.sh" />
+        <option name="urlTemplate" value="https://app.initium.sh/r/styles/{style}/{name}.json" />
+      </RegistryConfigState>
+      <RegistryConfigState>
+        <option name="id" value="central-motion-menu" />
+        <option name="name" value="Motion-menu" />
+        <option name="namespace" value="@motion-menu" />
+        <option name="baseUrl" value="https://motion-menu-two.vercel.app/r" />
+        <option name="stylePath" value="/{name}.json" />
+        <option name="type" value="community" />
+        <option name="enabled" value="false" />
+        <option name="description" value="596 motion/3D UI patterns — scroll-driven WebGL, shader passes, spring choreography — as ready HTML/CSS/JS. 26 free, or $149 once for the rest." />
+        <option name="homepage" value="https://motion-menu-two.vercel.app" />
+        <option name="urlTemplate" value="https://motion-menu-two.vercel.app/r/{name}.json" />
+      </RegistryConfigState>
+      <RegistryConfigState>
+        <option name="id" value="central-motiq" />
+        <option name="name" value="Motiq" />
+        <option name="namespace" value="@motiq" />
+        <option name="baseUrl" value="https://motiq.dev/r" />
+        <option name="stylePath" value="/{name}.json" />
+        <option name="type" value="community" />
+        <option name="enabled" value="false" />
+        <option name="description" value="Production-ready animated React and Next.js components — accessible, reduced-motion-safe and RSC-safe — installable as editable source with the shadcn CLI. Free and open source." />
+        <option name="homepage" value="https://motiq.dev" />
+        <option name="urlTemplate" value="https://motiq.dev/r/{name}.json" />
+      </RegistryConfigState>
+      <RegistryConfigState>
+        <option name="id" value="central-openmirai" />
+        <option name="name" value="Openmirai" />
+        <option name="namespace" value="@openmirai" />
+        <option name="baseUrl" value="https://www.openmirai.dev/r" />
+        <option name="stylePath" value="/{name}.json" />
+        <option name="type" value="community" />
+        <option name="enabled" value="false" />
+        <option name="description" value="Open-source React and TypeScript tools from OpenMirai." />
+        <option name="homepage" value="https://www.openmirai.dev" />
+        <option name="urlTemplate" value="https://www.openmirai.dev/r/{name}.json" />
+      </RegistryConfigState>
+      <RegistryConfigState>
+        <option name="id" value="central-preskok" />
+        <option name="name" value="Preskok" />
+        <option name="namespace" value="@preskok" />
+        <option name="baseUrl" value="https://ui-three-mu.vercel.app/r" />
+        <option name="stylePath" value="/{name}.json" />
+        <option name="type" value="community" />
+        <option name="enabled" value="false" />
+        <option name="description" value="Accessible, production-ready React components built with React Aria Components and Tailwind CSS." />
+        <option name="homepage" value="https://ui-three-mu.vercel.app" />
+        <option name="urlTemplate" value="https://ui-three-mu.vercel.app/r/{name}.json" />
+      </RegistryConfigState>
+      <RegistryConfigState>
+        <option name="id" value="central-snap-cn" />
+        <option name="name" value="Snap-cn" />
+        <option name="namespace" value="@snap-cn" />
+        <option name="baseUrl" value="https://snapcn.dev/r" />
+        <option name="stylePath" value="/{name}.json" />
+        <option name="type" value="community" />
+        <option name="enabled" value="false" />
+        <option name="description" value="Remotion video components for React. Text reveals, karaoke captions, device mockups, logo stings and full scenes, installed with the CLI and owned as source." />
+        <option name="homepage" value="https://snapcn.dev" />
+        <option name="urlTemplate" value="https://snapcn.dev/r/{name}.json" />
+      </RegistryConfigState>
+      <RegistryConfigState>
+        <option name="id" value="central-knock-codes" />
+        <option name="name" value="Knock-codes" />
+        <option name="namespace" value="@knock-codes" />
+        <option name="baseUrl" value="https://knock.codes/r/react" />
+        <option name="stylePath" value="/{name}.json" />
+        <option name="type" value="community" />
+        <option name="enabled" value="false" />
+        <option name="description" value="Copy-paste, session-gated access blocks for React — PIN/Knock Code unlock screens, protected routes/layouts/modals, a headless useKnockCodes hook, and full-page templates." />
+        <option name="homepage" value="https://knock.codes" />
+        <option name="urlTemplate" value="https://knock.codes/r/react/{name}.json" />
+      </RegistryConfigState>
     </registryConfigs>
   </component>
 </project>

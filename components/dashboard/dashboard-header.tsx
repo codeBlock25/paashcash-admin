@@ -5,6 +5,7 @@ import {
   ChevronsUpDown,
   CircleUserRound,
   Crown,
+  Gift,
   House,
   ImageIcon,
   Menu,
@@ -37,52 +38,61 @@ export function DashboardHeader({
   const waitlistPage = pathname.startsWith('/dashboard/waitlist');
   const notificationsPage = pathname.startsWith('/dashboard/notifications');
   const profilePage = pathname.startsWith('/dashboard/profile');
+  const giftCardAvailabilityPage = pathname.startsWith(
+    '/dashboard/feature-status/gift-cards',
+  );
   const adminsPage = pathname.startsWith('/dashboard/admins');
-  const HeaderIcon = profilePage
-    ? CircleUserRound
-    : adminsPage
-      ? ShieldCheck
-      : notificationsPage
-        ? Bell
-        : waitlistPage
-          ? UsersRound
-          : servicesPage
-            ? Zap
-            : subscriptionsPage
-              ? Crown
-              : bannersPage
-                ? ImageIcon
-                : House;
-  const title = profilePage
-    ? 'Profile Settings'
-    : adminsPage
-      ? 'Admins'
-      : notificationsPage
-        ? 'Notifications'
-        : waitlistPage
-          ? 'Waiting List'
-          : servicesPage
-            ? 'Services'
-            : subscriptionsPage
-              ? 'Billing & Subscription'
-              : bannersPage
-                ? 'Banners'
-                : 'Dashboard';
-  const description = profilePage
-    ? 'Manage your account and preferences'
-    : adminsPage
-      ? 'Manage administrator and case manager accounts'
-      : notificationsPage
-        ? 'System alerts and activity updates'
-        : waitlistPage
-          ? 'View people waiting to join Paash Cash'
-          : servicesPage
-            ? 'View and manage user services'
-            : subscriptionsPage
-              ? 'View and manage user subscriptions'
-              : bannersPage
-                ? 'View and manage Banners'
-                : 'View and manage users';
+  const HeaderIcon = giftCardAvailabilityPage
+    ? Gift
+    : profilePage
+      ? CircleUserRound
+      : adminsPage
+        ? ShieldCheck
+        : notificationsPage
+          ? Bell
+          : waitlistPage
+            ? UsersRound
+            : servicesPage
+              ? Zap
+              : subscriptionsPage
+                ? Crown
+                : bannersPage
+                  ? ImageIcon
+                  : House;
+  const title = giftCardAvailabilityPage
+    ? 'Gift Card Availability'
+    : profilePage
+      ? 'Profile Settings'
+      : adminsPage
+        ? 'Admins'
+        : notificationsPage
+          ? 'Notifications'
+          : waitlistPage
+            ? 'Waiting List'
+            : servicesPage
+              ? 'Services'
+              : subscriptionsPage
+                ? 'Billing & Subscription'
+                : bannersPage
+                  ? 'Banners'
+                  : 'Dashboard';
+  const description = giftCardAvailabilityPage
+    ? 'Control the mobile gift-card feature foundation'
+    : profilePage
+      ? 'Manage your account and preferences'
+      : adminsPage
+        ? 'Manage administrator and case manager accounts'
+        : notificationsPage
+          ? 'System alerts and activity updates'
+          : waitlistPage
+            ? 'View people waiting to join Paash Cash'
+            : servicesPage
+              ? 'View and manage user services'
+              : subscriptionsPage
+                ? 'View and manage user subscriptions'
+                : bannersPage
+                  ? 'View and manage Banners'
+                  : 'View and manage users';
 
   return (
     <header className="flex h-[86px] shrink-0 items-center justify-between border-b bg-white px-4 sm:px-8">

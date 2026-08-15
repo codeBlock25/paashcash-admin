@@ -27,10 +27,12 @@ export function AddAdminDialog({
   open,
   onOpenChange,
   onCreated,
+  caseManagerOnly = false,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onCreated: () => void;
+  caseManagerOnly?: boolean;
 }) {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -119,7 +121,7 @@ export function AddAdminDialog({
       <DialogContent className="max-w-[760px] rounded-[26px] p-6 sm:p-8">
         <DialogHeader>
           <DialogTitle className="text-[24px] font-semibold text-[#242329] sm:text-[28px]">
-            Add Admin
+            {caseManagerOnly ? 'Add Case Manager' : 'Add Admin'}
           </DialogTitle>
         </DialogHeader>
 
@@ -194,29 +196,31 @@ export function AddAdminDialog({
                 className="h-12 text-[15px]"
               />
             </FormField>
-            <FormField
-              label="Role"
-              htmlFor="admin-role"
-              error={fieldErrors.role}
-            >
-              <select
-                id="admin-role"
-                value={role}
-                aria-invalid={Boolean(fieldErrors.role)}
-                aria-describedby={
-                  fieldErrors.role ? 'admin-role-error' : undefined
-                }
-                onChange={(event) => {
-                  setRole(event.target.value as AdminAccountType);
-                  clearFieldError('role');
-                }}
-                className="h-12 w-full rounded-lg border border-[#e7e7ea] bg-white px-3 text-[15px] text-[#292635] outline-none focus:border-primary focus:ring-3 focus:ring-primary/15 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/15"
+            {!caseManagerOnly ? (
+              <FormField
+                label="Role"
+                htmlFor="admin-role"
+                error={fieldErrors.role}
               >
-                <option value="admin">Admin</option>
-                <option value="case_manager">Case Manager</option>
-                <option value="admin_case_manager">Admin Case Manager</option>
-              </select>
-            </FormField>
+                <select
+                  id="admin-role"
+                  value={role}
+                  aria-invalid={Boolean(fieldErrors.role)}
+                  aria-describedby={
+                    fieldErrors.role ? 'admin-role-error' : undefined
+                  }
+                  onChange={(event) => {
+                    setRole(event.target.value as AdminAccountType);
+                    clearFieldError('role');
+                  }}
+                  className="h-12 w-full rounded-lg border border-[#e7e7ea] bg-white px-3 text-[15px] text-[#292635] outline-none focus:border-primary focus:ring-3 focus:ring-primary/15 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/15"
+                >
+                  <option value="admin">Admin</option>
+                  <option value="case_manager">Case Manager</option>
+                  <option value="admin_case_manager">Admin Case Manager</option>
+                </select>
+              </FormField>
+            ) : null}
           </div>
 
           {formError ? (
@@ -263,7 +267,11 @@ export function AddAdminDialog({
               className="min-w-40 px-5"
             >
               {submitting ? <LoaderCircle className="animate-spin" /> : null}
-              {submitting ? 'Sending invite…' : 'Add Admin'}
+              {submitting
+                ? 'Sending invite…'
+                : caseManagerOnly
+                  ? 'Add Case Manager'
+                  : 'Add Admin'}
             </Button>
           </DialogFooter>
         </form>

@@ -20,6 +20,7 @@ import {
   UserCheck,
   UserX,
 } from 'lucide-react';
+import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { toast } from 'sonner';
@@ -54,15 +55,24 @@ function createColumns({
   canManage,
   currentAccountId,
   onChanged,
+  caseManagersOnly,
 }: {
   canManage: boolean;
   currentAccountId: string;
   onChanged: () => void;
+  caseManagersOnly: boolean;
 }) {
   return columnHelper.columns([
     columnHelper.accessor('fullName', {
       header: 'ADMIN',
-      cell: ({ row }) => <AdminIdentity admin={row.original} />,
+      cell: ({ row }) =>
+        caseManagersOnly ? (
+          <Link href={`/dashboard/case-managers/${row.original.id}`}>
+            <AdminIdentity admin={row.original} />
+          </Link>
+        ) : (
+          <AdminIdentity admin={row.original} />
+        ),
     }),
     columnHelper.accessor('accountType', {
       header: 'ROLE',
@@ -121,11 +131,15 @@ export function AdminsPage({
   const columns = useMemo(
     () =>
       createColumns({
-        canManage: currentAccount.accountType === 'admin',
+        canManage:
+          currentAccount.accountType === 'admin' ||
+          (caseManagersOnly &&
+            currentAccount.accountType === 'admin_case_manager'),
         currentAccountId: currentAccount.id,
         onChanged: () => setReloadKey((value) => value + 1),
+        caseManagersOnly,
       }),
-    [currentAccount.accountType, currentAccount.id],
+    [caseManagersOnly, currentAccount.accountType, currentAccount.id],
   );
 
   useEffect(() => {
@@ -229,14 +243,17 @@ export function AdminsPage({
                 : 'Manage, monitor and configure administrator accounts.'}
             </p>
           </div>
-          {currentAccount.accountType === 'admin' ? (
+          {currentAccount.accountType === 'admin' ||
+          (caseManagersOnly &&
+            currentAccount.accountType === 'admin_case_manager') ? (
             <Button
               type="button"
               size="lg"
               onClick={() => setAddAdminOpen(true)}
               className="w-fit px-5"
             >
-              <Plus className="size-4" /> Add Admin
+              <Plus className="size-4" />{' '}
+              {caseManagersOnly ? 'Add Case Manager' : 'Add Admin'}
             </Button>
           ) : null}
         </div>
@@ -415,8 +432,11 @@ export function AdminsPage({
         </div>
       </div>
 
-      {currentAccount.accountType === 'admin' ? (
+      {currentAccount.accountType === 'admin' ||
+      (caseManagersOnly &&
+        currentAccount.accountType === 'admin_case_manager') ? (
         <AddAdminDialog
+          caseManagerOnly={caseManagersOnly}
           open={addAdminOpen}
           onOpenChange={setAddAdminOpen}
           onCreated={() => setReloadKey((value) => value + 1)}
