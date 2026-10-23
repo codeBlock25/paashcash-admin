@@ -111,6 +111,11 @@ function getNavigation(
         ...adminItems,
         { label: 'Agencies', href: '/dashboard/agencies', icon: Store },
         {
+          label: 'Registration Policies',
+          href: '/dashboard/registration-policies',
+          icon: ShieldCheck,
+        },
+        {
           label: 'Gift Card Availability',
           href: '/dashboard/feature-status/gift-cards',
           icon: Gift,
