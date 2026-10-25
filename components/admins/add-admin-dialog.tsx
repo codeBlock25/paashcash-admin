@@ -216,6 +216,8 @@ export function AddAdminDialog({
                   className="h-12 w-full rounded-lg border border-[#e7e7ea] bg-white px-3 text-[15px] text-[#292635] outline-none focus:border-primary focus:ring-3 focus:ring-primary/15 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/15"
                 >
                   <option value="admin">Admin</option>
+                  <option value="admin_support">Support Admin</option>
+                  <option value="support_user">Support Agent</option>
                   <option value="case_manager">Case Manager</option>
                   <option value="admin_case_manager">Admin Case Manager</option>
                 </select>

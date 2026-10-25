@@ -63,6 +63,21 @@ const caseManagementItems: NavigationItem[] = [
 function getNavigation(
   accountType: AdminAccount['accountType'],
 ): NavigationGroup[] {
+  if (accountType === 'admin_support' || accountType === 'support_user')
+    return [
+      {
+        label: 'Support',
+        items: [
+          {
+            label: 'Support inbox',
+            href: '/dashboard/support',
+            icon: MessageCircle,
+          },
+          { label: 'Settings', href: '/dashboard/profile', icon: Settings },
+        ],
+      },
+    ];
+
   if (accountType === 'admin_case_manager') {
     return [
       {
@@ -109,6 +124,11 @@ function getNavigation(
       label: 'Admin',
       items: [
         ...adminItems,
+        {
+          label: 'Support inbox',
+          href: '/dashboard/support',
+          icon: MessageCircle,
+        },
         { label: 'Agencies', href: '/dashboard/agencies', icon: Store },
         {
           label: 'Registration Policies',

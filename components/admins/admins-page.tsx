@@ -294,6 +294,8 @@ export function AdminsPage({
                 }}
                 options={[
                   ['admin', 'Admin'],
+                  ['admin_support', 'Support Admin'],
+                  ['support_user', 'Support Agent'],
                   ['case_manager', 'Case Manager'],
                   ['admin_case_manager', 'Admin Case Manager'],
                 ]}
@@ -743,6 +745,8 @@ function initials(firstName: string, lastName: string): string {
 
 function roleLabel(role: AdminListItem['accountType']): string {
   if (role === 'admin') return 'Admin';
+  if (role === 'admin_support') return 'Support Admin';
+  if (role === 'support_user') return 'Support Agent';
   if (role === 'admin_case_manager') return 'Admin Case Manager';
   return 'Case Manager';
 }

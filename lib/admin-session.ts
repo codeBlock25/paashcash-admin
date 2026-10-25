@@ -5,8 +5,18 @@ import { cookies } from 'next/headers';
 import { getBackendApiUrl } from '@/lib/backend-api';
 
 export type AdminAccount = {
-  accountType: 'admin' | 'admin_case_manager' | 'case_manager';
-  adminRoleLevel: 'admin_case_manager' | 'case_manager' | null;
+  accountType:
+    | 'admin'
+    | 'admin_case_manager'
+    | 'case_manager'
+    | 'admin_support'
+    | 'support_user';
+  adminRoleLevel:
+    | 'admin_case_manager'
+    | 'case_manager'
+    | 'admin_support'
+    | 'support_user'
+    | null;
   animoji?: {
     imageUrl: string;
     name: string;
@@ -35,7 +45,9 @@ export async function getAdminSession(): Promise<AdminAccount | null> {
     if (
       result.account?.accountType !== 'admin' &&
       result.account?.accountType !== 'admin_case_manager' &&
-      result.account?.accountType !== 'case_manager'
+      result.account?.accountType !== 'case_manager' &&
+      result.account?.accountType !== 'admin_support' &&
+      result.account?.accountType !== 'support_user'
     ) {
       return null;
     }

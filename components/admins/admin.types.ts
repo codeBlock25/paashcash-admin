@@ -1,4 +1,9 @@
-export type AdminAccountType = 'admin' | 'admin_case_manager' | 'case_manager';
+export type AdminAccountType =
+  | 'admin'
+  | 'admin_case_manager'
+  | 'case_manager'
+  | 'admin_support'
+  | 'support_user';
 
 export type AdminListItem = {
   id: string;
@@ -8,7 +13,12 @@ export type AdminListItem = {
   email: string;
   phoneNumber: string | null;
   accountType: AdminAccountType;
-  roleLevel: 'admin_case_manager' | 'case_manager' | null;
+  roleLevel:
+    | 'admin_case_manager'
+    | 'case_manager'
+    | 'admin_support'
+    | 'support_user'
+    | null;
   status: 'active' | 'inactive' | 'invited';
   createdAt: string;
   updatedAt: string;
